@@ -1,12 +1,38 @@
+{% load bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>Bem vindo!</h1>
-    <p>Selecione um tipo de gráfico para visualizar o relatório.</p>
-</body>
+    {% bootstrap_css %}
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bem vindo!</h1>
+      <p>Selecione um tipo de gráfico para visualizar o relatório.</p>
+
+      <ul>
+        <li>
+          <a href="#">Top 15 palavras mais frequentes</a>
+        </li>
+        <li>
+          <a href="#">Distribuição de Tweets por Classe</a>
+        </li>
+        <li>
+          <a href="#">Distribuição do Tamanho dos Tweets</a>
+        </li>
+        <li>
+          <a href="#">Proporção de Classes</a>
+        </li>
+        <li>
+          <a href="#">Tamanho vs. Qtde de Palavras</a>
+        </li>
+        <li>
+          <a href="#">Variação do Tamanho por Classe</a>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>
