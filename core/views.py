@@ -1,9 +1,9 @@
 from django.shortcuts import render
 import io, urllib, base64
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
-from models import Tweet
+from .models import Tweet
 
 def get_dataframe():
     # Busca todos os dados do banco e retorna um DataFrame do Pandas
@@ -34,7 +34,39 @@ def line_chart_view(request):
     grafico_linhas = plot_to_base64(plt.gcf())
     plt.close()
     context = {'grafico_linhas': grafico_linhas,}
-    return render(request, 'core/index.html', context)
+    return render(request, 'analise01.html', context)
+
+def bar_chart_view(request):
+    # Comparar visualmente a quantidade de tweets classificados como desastre real 
+    df = get_dataframe()
+    qtde_tweets = df['target'].value_counts().sort_index()
+    labels = ['Não desastre', 'Desastre']
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.bar(labels, qtde_tweets.values, color=['skyblue', 'coral'])
+    ax.set_title('Distribuição de Tweets por Classe (Barras)')
+    ax.set_ylabel('Quantidade')
+
+    plt.tight_layout()
+    grafico_barras = plot_to_base64(plt.gcf())
+    plt.close()
+    context = {'grafico_barras': grafico_barras,}
+    return render(request, 'analise02.html', context)
+
+def pie_chart_view(request):
+    # Visualizar a proporção percentual entre tweets de desastre real e não desastre 
+    df = get_dataframe()
+    counts = df['target'].value_counts()
+    labels = ['Não desastre', 'Desastre']
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.pie(counts.values, labels=labels, 
+           colors=['skyblue', 'coral'], autopct='%1.1f%%')
+    ax.set_title('Proporção das classes (Pizza)')
+
+    plt.tight_layout()
+    grafico_barras = plot_to_base64(plt.gcf())
+    plt.close()
+    context = {'grafico_barras': grafico_barras,}
+    return render(request, 'analise03.html', context)
 
 def index(request):
     return render(request, 'index.html')
