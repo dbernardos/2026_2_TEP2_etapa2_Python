@@ -1,9 +1,12 @@
 from django.shortcuts import render
-import io, urllib, base64
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 from .models import Tweet
+
+import io, urllib, base64
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 def get_dataframe():
     # Busca todos os dados do banco e retorna um DataFrame do Pandas
